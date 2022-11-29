@@ -3,9 +3,6 @@ package data;
 import lombok.Value;
 
 public class DataHelper {
-
-    public static DataGenerator dataGenerator = new DataGenerator();
-
     @Value
     public static class CardInfo {
         String cardNumber;
@@ -26,7 +23,7 @@ public class DataHelper {
     }
 
     public static CardInfo getCardNumberFieldEmpty() {
-        return new CardInfo(DataGenerator.getEmptyCardNumberField(), DataGenerator.getShiftedMonthFromNow(3), DataGenerator.getShiftedYearFromNow(3), DataGenerator.getValidOwner(), DataGenerator.getValidCVC());
+        return new CardInfo(DataGenerator.getEmptyString(), DataGenerator.getShiftedMonthFromNow(3), DataGenerator.getShiftedYearFromNow(3), DataGenerator.getValidOwner(), DataGenerator.getValidCVC());
     }
 
     public static CardInfo getInvalidCardNumberWithOneDigit() {
@@ -48,7 +45,7 @@ public class DataHelper {
     //  Testing a Month
 
     public static CardInfo getFieldMonthEmpty() {
-        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getEmptyMonthField(), DataGenerator.getShiftedYearFromNow(1), DataGenerator.getValidOwner(), DataGenerator.getValidCVC());
+        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getEmptyString(), DataGenerator.getShiftedYearFromNow(1), DataGenerator.getValidOwner(), DataGenerator.getValidCVC());
     }
 
     public static CardInfo getInvalidMonthWithZeros() {
@@ -70,7 +67,7 @@ public class DataHelper {
     //  Testing Year
 
     public static CardInfo getFieldYearEmpty() {
-        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(1), DataGenerator.getEmptyYearField(), DataGenerator.getValidOwner(), DataGenerator.getValidCVC());
+        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(1), DataGenerator.getEmptyString(), DataGenerator.getValidOwner(), DataGenerator.getValidCVC());
     }
 
     public static CardInfo getInvalidYearWithOneDigit() {
@@ -92,7 +89,7 @@ public class DataHelper {
     //  Testing the Owner
 
     public static CardInfo getOwnerFieldEmpty() {
-        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(3), DataGenerator.getShiftedYearFromNow(1), DataGenerator.getEmptyOwnerField(), DataGenerator.getValidCVC());
+        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(3), DataGenerator.getShiftedYearFromNow(1), DataGenerator.getEmptyString(), DataGenerator.getValidCVC());
     }
 
     public static CardInfo getInvalidOwnerWithOneLetter() {
@@ -134,7 +131,7 @@ public class DataHelper {
     //  Testing CVC/CVV
 
     public static CardInfo getEmptyCVCField() {
-        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(3), DataGenerator.getShiftedYearFromNow(1), DataGenerator.getValidOwner(), DataGenerator.getEmptyFieldCVC());
+        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(3), DataGenerator.getShiftedYearFromNow(1), DataGenerator.getValidOwner(), DataGenerator.getEmptyString());
     }
 
     public static CardInfo getInvalidCVCWithOneDigit() {

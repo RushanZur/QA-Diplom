@@ -39,17 +39,10 @@ test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
     systemProperty 'db.url', System.getProperty('db.url')
-    systemProperty 'db.user', System.getProperty('db.user', 'admin')useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-
     systemProperty 'sut.url', System.getProperty('sut.url', 'http://localhost:8080')
-
     systemProperty 'api.url', System.getProperty('api.url', 'http://localhost/api/v1/')
     systemProperty 'api.port', System.getProperty('api.port', "8080")
-
     systemProperty 'db.user', System.getProperty('db.user', 'admin')
     systemProperty 'db.password', System.getProperty('db.password', 'pass')
-    systemProperty 'db.url', System.getProperty('db.url')
-    systemProperty 'db.password', System.getProperty('db.password', 'pass')
-    systemProperty 'sut.url', System.getProperty('sut.url', 'http://localhost:8080')
+
 }
