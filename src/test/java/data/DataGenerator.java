@@ -88,6 +88,10 @@ public class DataGenerator {
         Faker faker = new Faker(new Locale("en"));
         return faker.name().firstName();
     }
+    public static String getTwoDigitsAnyString() {
+        Faker faker = new Faker(new Locale("en"));
+        return faker.number().digits(2);
+    }
 
     public static String getInvalidOwnerFieldWithThreeWords() {
         return "Ivanov Ivan Ivanovich";
@@ -126,10 +130,6 @@ public class DataGenerator {
 
     public static String getInvalidCVC() {
         return "000";
-    }
-
-    public static String getIncorrectCVCWithTwoDigits() {
-        return "12";
     }
 
     public static String getIncorrectCVCWithOneDigit() {

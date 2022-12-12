@@ -12,6 +12,13 @@ public class DataHelper {
         String cvc;
     }
 
+    public static CardInfo getValidApprovedCardDataAPI() {
+        return new CardInfo("4444 4444 4444 4441", "04", "23", "Ivanov Ivan", "123");
+    }
+
+    public static CardInfo getValidDeclinedCardDataAPI() {
+        return new CardInfo("4444 4444 4444 4442", "04", "23", "Ivanov Ivan", "123");
+    }
     //   Testing the Card Number
 
     public static CardInfo getValidApprovedCardData() {
@@ -139,7 +146,7 @@ public class DataHelper {
     }
 
     public static CardInfo getInvalidCVCWithTwoDigits() {
-        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(1), DataGenerator.getShiftedYearFromNow(3), DataGenerator.getValidOwner(), DataGenerator.getIncorrectCVCWithTwoDigits());
+        return new CardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getShiftedMonthFromNow(1), DataGenerator.getShiftedYearFromNow(3), DataGenerator.getValidOwner(), DataGenerator.getTwoDigitsAnyString());
     }
 
     public static CardInfo getInvalidCVCWithZeros() {

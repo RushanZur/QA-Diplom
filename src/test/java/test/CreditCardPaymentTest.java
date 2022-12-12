@@ -2,13 +2,13 @@ package test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.val;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import data.DataHelper;
 import page.MainPage;
+import page.PaymentPage;
 import sql.SqlHelper;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -38,21 +38,21 @@ public class CreditCardPaymentTest {
 
     @Test
     public void shouldDoPaymentByCreditCardWithStatusApproved() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getValidApprovedCardData();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getValidApprovedCardData();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkSuccessNotification();
-        val paymentStatus = SqlHelper.getStatusCreditRequestEntity();
+        String paymentStatus = SqlHelper.getStatusCreditRequestEntity();
         assertEquals("APPROVED", paymentStatus);
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWithStatusDeclined() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getValidDeclinedCardData();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getValidDeclinedCardData();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkErrorNotification();
-        val paymentStatus = SqlHelper.getStatusCreditRequestEntity();
+        String paymentStatus = SqlHelper.getStatusCreditRequestEntity();
         assertEquals("DECLINED", paymentStatus);
     }
 
@@ -62,40 +62,40 @@ public class CreditCardPaymentTest {
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldWithInvalidCardNumber() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidCardNumberIfFieldAllZeros();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidCardNumberIfFieldAllZeros();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkErrorNotification();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenCardNumberFieldAnotherBankCard() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getAnotherBankCardNumber();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getAnotherBankCardNumber();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkErrorNotification();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldCardNumberWithOneDigit() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidCardNumberWithOneDigit();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info= DataHelper.getInvalidCardNumberWithOneDigit();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldCardNumberWithFifteenDigits() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidCardNumberWithFifteenDigits();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidCardNumberWithFifteenDigits();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenCardNumberFieldEmpty() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getCardNumberFieldEmpty();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getCardNumberFieldEmpty();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
@@ -105,32 +105,32 @@ public class CreditCardPaymentTest {
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldWithInvalidMonth() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidMonthWithIrrelevantValue();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidMonthWithIrrelevantValue();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkInvalidCardExpirationDate();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenMonthFieldIsZeros() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidMonthWithZeros();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidMonthWithZeros();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkInvalidCardExpirationDate();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldWithMonthExpiredCurrentYear() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidMonthIsCurrentYear();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidMonthIsCurrentYear();
         paymentPage.fillPaymentFormat(info);
         paymentPage.verifyCardExpired();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldMonthOneDigit() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidMonthWithOneDigit();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidMonthWithOneDigit();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
@@ -138,8 +138,8 @@ public class CreditCardPaymentTest {
     @Test
 
     public void shouldNotDoPaymentByCreditCardWhenFieldMonthEmpty() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getFieldMonthEmpty();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getFieldMonthEmpty();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
@@ -148,40 +148,40 @@ public class CreditCardPaymentTest {
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldWithExpiredYear() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getCardWithExpiredYear();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getCardWithExpiredYear();
         paymentPage.fillPaymentFormat(info);
         paymentPage.verifyCardExpired();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenFieldWithInvalidYearExpirationDate() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidYearExceedingCardExpirationDate();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidYearExceedingCardExpirationDate();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkInvalidCardExpirationDate();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenYearFieldWithZeros() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidYearWithZeros();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidYearWithZeros();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkInvalidCardExpirationDate();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenYearFieldWithOneDigit() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidYearWithOneDigit();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidYearWithOneDigit();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenYearFieldEmpty() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getFieldYearEmpty();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getFieldYearEmpty();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
@@ -190,80 +190,80 @@ public class CreditCardPaymentTest {
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenOwnerFieldFilledCyrillic() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithCyrillic();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithCyrillic();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenOwnerFieldWithOneLatinWord() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithOneWord();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithOneWord();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenOwnerFieldWithThreeLatinWords() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithThreeWords();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithThreeWords();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenOwnerFieldWithLowerCase() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithLowerCase();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithLowerCase();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenOwnerFieldWithUpperCase() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithUpperCase();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithUpperCase();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfOwnerFieldWithOneLetter() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithOneLetter();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithOneLetter();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfOwnerFieldWithLargeNumberLetters() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithLotsNumberOfLetters();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithLotsNumberOfLetters();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfOwnerFieldWithDigits() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithDigits();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithDigits();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfOwnerFieldWithSymbols() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidOwnerWithSymbols();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidOwnerWithSymbols();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfOwnerFieldEmpty() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getOwnerFieldEmpty();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getOwnerFieldEmpty();
         paymentPage.fillPaymentFormat(info);
         paymentPage.verifyEmptyField();
     }
@@ -272,32 +272,32 @@ public class CreditCardPaymentTest {
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenCVCIsOneDigit() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidCVCWithOneDigit();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidCVCWithOneDigit();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardWhenCVCIsTwoDigits() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidCVCWithTwoDigits();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidCVCWithTwoDigits();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfCVCWithThreeZeros() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getInvalidCVCWithZeros();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getInvalidCVCWithZeros();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
 
     @Test
     public void shouldNotDoPaymentByCreditCardIfCVCFieldEmpty() {
-        val paymentPage = mainPage.getPaymentByCreditCard();
-        val info = DataHelper.getEmptyCVCField();
+        PaymentPage paymentPage = mainPage.getPaymentByCreditCard();
+        DataHelper.CardInfo info = DataHelper.getEmptyCVCField();
         paymentPage.fillPaymentFormat(info);
         paymentPage.checkWrongFormat();
     }
