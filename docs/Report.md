@@ -18,7 +18,7 @@
 
 ## 3. Процент успешных/неуспешных тест-кейсов
 
-<img alt="image" src="C:\Users\79276\OneDrive\Изображения\AllureReport.jpg"/>
+![AllureReport](https://user-images.githubusercontent.com/102458328/207008753-924d1f45-ddb2-4e11-b7e2-9d36596a76ee.jpg)
 
 - Процент успешных: 51.61%
 - Процент неуспешных: 48.39%
